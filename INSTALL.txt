@@ -1,2 +1,61 @@
 Following instructions are for installing and deploying this API through an AWS EC2 instance using an Ubuntu AMI.  To facilitate installation, we'll be using Git/Github.  Although the Github repo I'll be using is public, a private repo can be setup as well if needed.
 
+1. In AWS, launch a new EC2 instance
+	- For this API I'll be using an Ubuntu Server 16.04 (different options available depending on need)
+	- For Instance Type I'm using t2.micro since this is a small API, but for a larger enterprise application one of the larger instance types would be better suited
+	- Setup options as needed for application, in this case default settings work
+	- Configure security group and settings as required.  For this API, in addition to the SSH type already selected, I'm adding an HTTP and HTTPS type
+	- Select PEM key pair for SSH access (make sure proper permissions are set on the .pem file to make it private)
+
+2. Setup Cloud Server (if using PC you may need to use Putty or Bash Terminal)
+	- ssh into the newly setup instance with the following command
+		ssh -i {{pem file}} ubuntu@{{public ip address}}
+	- update and install packages (node, nginx, npm , git, +) with following commands
+		sudo apt-get update         (updates package manager)
+		sudo apt-get install -y build-essential openssl libssl-dev pkg-config
+		sudo apt-get install -y nodejs nodejs-legacy  (installs node)
+		sudo apt-get install npm    (installs node package manager)
+		sudo npm cache clean -f     (clear npm's cache)
+		sudo npm install -g n       (installs a node version manager)
+		sudo n stable               (installs latest stable version of nodejs)
+		sudo apt-get install nginx  (installs nginx)
+		sudo apt-get install git    (installs git so that we can easily bring in the project)
+
+3. Bring project into the cloud server
+	- create folder and clone project into it from git
+		sudo mkdir /var/www         (if folder doesn't already exist)
+		cd /var/www
+		sudo git clone {{path to project on github}}
+		cd {{project}}
+		sudo npm install            (install node modules from package.json)
+	- install process manager so that we can run node processes in the background
+		sudo npm install pm2 -g
+
+4. Setup Nginx
+	- go to sites-available directory
+		cd /etc/nginx/sites-available
+		sudo vim {{project name}}   (this will create an empty file where we'll tell nginx what port to listen to and where to send the request)
+	- remove and default files that were already in the sites-available directory so that only the project is in it
+	- go to /etc/nginx/sites-enabled and remove those same files
+	- create a symbolic link inside sites-enabled to the {{project name}} file we created in sites-availabe
+		sudo ln -s /etc/nginx/sites-available/{{project name}} /etc/nginx/sites-enabled/{{project name}}
+
+5. Setup MongoDB
+	- import the public key. Command can be found in MongoDB docs for installing on ubuntu (will look like:)
+		sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv {{key}}
+	- create a file list for the correct version (also found in MongoDB docs)
+		echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+	- update packages to integrate MongoDB
+		sudo apt-get update
+	- install MongoDB
+		sudo apt-get install -y mongodb-org
+	- start mongo
+		sudo service mongod start  (may already be running)
+
+
+
+
+
+
+
+may want to set up ELB

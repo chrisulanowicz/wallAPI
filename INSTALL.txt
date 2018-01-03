@@ -51,6 +51,8 @@ Following instructions are for installing and deploying this API through an AWS 
 		sudo apt-get install -y mongodb-org
 	- start mongo
 		sudo service mongod start  (may already be running)
+	- ** may get error about mongo not finding data/db directory.  to fix just go to root '/' directory 
+		(cd /) and sudo mkdir -p /data/db/
 
 6. Get it running
 	- Start up pm2
@@ -58,10 +60,8 @@ Following instructions are for installing and deploying this API through an AWS 
 	- Restart nginx
 		sudo service nginx reload && sudo service nginx restart
 
+7. Go to site in browser and make sure it's working!
+	- http://52.41.189.22/
 
 
-
-
-
-
-may want to set up ELB
+This is the setup I went through to deploy my small API.  Larger enterprise applications will probably need some additional steps or different steps for additional security.  Also can set up Auto-Scaling and Load Balancing (ELB) for better performance.

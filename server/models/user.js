@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var bcrypt = require("bcrypt");
+var bcrypt = require("bcryptjs");
 var uniqueValidator = require("mongoose-unique-validator");
 var mongoosePaginate = require("mongoose-paginate");
 mongoose.Promise = global.Promise;

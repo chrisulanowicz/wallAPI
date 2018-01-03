@@ -1,0 +1,54 @@
+(Development testing done using Postman)
+
+Root / Home (GET)
+	- http://localhost:8000
+
+Working with Users
+	- Register / Create a new User (POST requires name, username[unique], email[unique], password[4 character minimum length])
+		- http://localhost:8000/users
+	- Login (POST requires username and password)
+		- http://localhost:8000/users/login
+	- Logout (GET)
+		- http://localhost:8000/users/logout
+	- Get all Users (GET)
+		- http://localhost:8000/users
+		- To select page (pagination), add ?page=# to end of url i.e.:
+			http://localhost:8000/users?page=2
+	- Get a User with unique descriptor (GET) (:descriptor can be email, username, or mongo ObjectId)
+		- http://localhost:8000/users/:descriptor
+	- Edit a User (PUT) (Can update name, email, username, and/or password fields sent in request body - all validations apply - can only edit logged in user)
+		- http://localhost:8000/users
+	- Delete a User (DELETE) (Can only delete logged in user)
+		- http://localhost:8000/users
+
+Working with Posts
+	- Create a new Post (POST requires title, body and user to be logged in)
+		- http://localhost:8000/posts
+	- Get all Posts (GET)
+		- http://localhost:8000/posts
+		- To select page (pagination), add ?page=# to end of url i.e.:
+			http://localhost:8000/posts?page=2
+	- Get post by id (GET)
+		- http://localhost:8000/posts/:id
+	- Get post by user id (GET)
+		- http://localhost:8000/posts/users/:userId
+	- Get post by comment id (GET)
+		- http://localhost:8000/posts/comments/:commentId
+	- Edit a Post (PUT) (Can update title and/or body, post must be originally created by logged in user)
+		- http://localhost:8000/posts/:id
+	- Delete (DELETE) (Can only delete post if originally created by logged in user)
+		- http://localhost:8000/posts/:id
+
+Working with Comments
+	- Create a new Comment (POST requires post id, body, and user to be logged in)
+		- http://localhost:8000/comments
+	- Get a comment by id (GET)
+		- http://localhost:8000/comments/:id
+	- Get all comments by post id (GET)
+		- http://localhost:8000/comments/posts/:postId
+	- Get all comments by email (GET)
+		- http://localhost:8000/comments/users/:email
+	- Edit a Comment (PUT) (Can update body and comment must be originally created by logged in user)
+		- http://localhost:8000/comments/:id
+	- Delete a Comment (DELETE) (Can only delete comment if logged in user created it or it belongs to a post created by logged in user)
+		- http://localhost:8000/comments/:id

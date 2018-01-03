@@ -1,0 +1,2 @@
+Following instructions are for installing and deploying this API through an AWS EC2 instance using an Ubuntu AMI.  To facilitate installation, we'll be using Git/Github.  Although the Github repo I'll be using is public, a private repo can be setup as well if needed.
+

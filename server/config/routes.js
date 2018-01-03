@@ -1,8 +1,8 @@
 var path = require("path");
-var home = require("./../../controllers/home.js");
-var users = require("./../../controllers/users.js");
-var posts = require("./../../controllers/posts.js");
-var comments = require("./../../controllers/comments.js");
+var home = require("./../controllers/home.js");
+var users = require("./../controllers/users.js");
+var posts = require("./../controllers/posts.js");
+var comments = require("./../controllers/comments.js");
 
 module.exports = function(app){
 

@@ -52,6 +52,12 @@ Following instructions are for installing and deploying this API through an AWS 
 	- start mongo
 		sudo service mongod start  (may already be running)
 
+6. Get it running
+	- Start up pm2
+		pm2 start server.js
+	- Restart nginx
+		sudo service nginx reload && sudo service nginx restart
+
 
 
 
